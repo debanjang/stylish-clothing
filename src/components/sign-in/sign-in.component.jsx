@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import "./sign-in.styles.scss";
 import CustomInput from "../custom-input/custom-input.component";
 import CustomButton from "../custom-button/custom-button.component";
+import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
 
 class SignIn extends Component {
   constructor(props) {
@@ -23,11 +24,16 @@ class SignIn extends Component {
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit = async event => {
     event.preventDefault();
-
+    const { email, password } = this.state;
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      console.log("Error while signing in", error.message);
+    }
     this.setState({ email: "", password: "" });
-  }
+  };
 
   render() {
     return (
@@ -36,7 +42,7 @@ class SignIn extends Component {
           <h1> I already have an account! </h1>
           <span> Please sign in with your email and password. </span>
         </div>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <CustomInput
             name="email"
             type="email"
@@ -54,7 +60,14 @@ class SignIn extends Component {
             label="Password"
             required
           />
-          <CustomButton type="submit">Sign In</CustomButton>
+
+          <div className="buttons">
+            <CustomButton type="submit">Sign In</CustomButton>
+
+            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+              Sign In With Google
+            </CustomButton>
+          </div>
         </form>
       </div>
     );
