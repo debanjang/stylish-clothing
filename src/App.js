@@ -20,7 +20,9 @@ class App extends Component {
     //auth.onAuthStateChanged fires when a user signs in and signs off.
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
-        //save the user from firebase auth to firestore db
+        //save the user from firebase auth to firestore DB
+        //this is how methods such as google sign in,
+        //which don't need registration with email and password save data to the DB
         const userRef = await createUserProfileDocument(user);
         //save the user from the firestore snapshot into the state
         this.saveUserToState(userRef);
@@ -34,7 +36,7 @@ class App extends Component {
     this.unsubscribeFromAuth();
   }
 
-  //onSnapshot fires when any data in the firestore documentRef updates and saves to the state
+  //onSnapshot fires when any data in the firestore documentRef updates
   saveUserToState(userRef) {
     userRef.onSnapshot(snapshot => {
       this.setState(

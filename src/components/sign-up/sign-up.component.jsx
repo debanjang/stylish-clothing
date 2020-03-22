@@ -28,7 +28,7 @@ class SignUp extends Component {
     event.preventDefault();
     const { displayName, email, password, confirmPassword } = this.state;
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      this.setState({ errorMessage: "Passwords do not match" });
       return;
     }
     //Creates a new user account in firebase auth with the specified email address and password
