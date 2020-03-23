@@ -4,13 +4,15 @@ import "./sign-in.styles.scss";
 import CustomInput from "../custom-input/custom-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
+import Error from "../error/error.component";
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      errorMessage: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,7 +32,9 @@ class SignIn extends Component {
     try {
       await auth.signInWithEmailAndPassword(email, password);
     } catch (error) {
-      console.log("Error while signing in", error.message);
+      this.setState({
+        errorMessage: "Error while signing in: " + error.message
+      });
     }
     this.setState({ email: "", password: "" });
   };
@@ -69,6 +73,9 @@ class SignIn extends Component {
             </CustomButton>
           </div>
         </form>
+        {this.state.errorMessage ? (
+          <Error errorMessage={this.state.errorMessage} />
+        ) : null}
       </div>
     );
   }
