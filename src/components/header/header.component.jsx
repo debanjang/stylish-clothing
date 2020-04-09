@@ -6,10 +6,11 @@ import { auth } from "../../firebase/firebase.utils";
 import { connect } from "react-redux";
 
 import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropDown from "../cart-dropdown/cart-dropdown.component";
 
 const Header = props => {
   //read currentUser from redux state set into props through mapStateToProps
-  const { currentUser } = props;
+  const { currentUser, isCartDropdownHidden } = props;
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -36,12 +37,14 @@ const Header = props => {
         )}
         <CartIcon />
       </div>
+      {isCartDropdownHidden ? null : <CartDropDown />}
     </div>
   );
 };
 
 const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+  currentUser: state.user.currentUser,
+  isCartDropdownHidden: state.cart.hidden
 });
 
 export default connect(mapStateToProps)(Header);
