@@ -6,7 +6,7 @@ import Header from "./components/header/header.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import "./App.css";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import { setCurrentUser } from "./redux/action/user.action";
+import { setCurrentUser } from "./redux/action/user/user.action";
 import { connect } from "react-redux";
 import Jackets from "./pages/jackets/jackets.component";
 import Mens from "./pages/mens/mens.component";
@@ -20,7 +20,7 @@ class App extends Component {
   //get the user id when a user logs in
   componentDidMount() {
     //auth.onAuthStateChanged fires when a user signs in and signs off.
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
         //save the user from firebase auth to firestore DB
         //this is how methods such as google sign in,
@@ -42,10 +42,10 @@ class App extends Component {
 
   //onSnapshot fires when any data in the firestore documentRef updates
   saveUserToState(userRef) {
-    userRef.onSnapshot(snapshot => {
+    userRef.onSnapshot((snapshot) => {
       this.props.setCurrentUser({
         id: snapshot.id,
-        ...snapshot.data()
+        ...snapshot.data(),
       });
     });
   }
@@ -74,8 +74,8 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
 });
 
 /* our mapDispatchToProps function should return a plain object:
@@ -85,8 +85,8 @@ If you use action creators ( as oppose to plain object actions ) inside dispatch
   it is a convention to simply name the field key the same name as the action creator 
   
 This will bind props to dispatcher every time component re-renders*/
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

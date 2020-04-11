@@ -8,11 +8,11 @@ class Mens extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: SHOP_DATA
+      data: SHOP_DATA,
     };
   }
 
-  getMensData = data => {
+  getMensData = (data) => {
     return data.title === "Mens";
   };
 
@@ -22,8 +22,8 @@ class Mens extends Component {
     return (
       <div className="collection">
         <div className="preview">
-          {mensData.map(({ id, ...otherItemProps }) => (
-            <CollectionItem key={id} {...otherItemProps} />
+          {mensData.map((item) => (
+            <CollectionItem key={item.id} item={item} />
           ))}
         </div>
       </div>

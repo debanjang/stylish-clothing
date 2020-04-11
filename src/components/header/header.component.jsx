@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropDown from "../cart-dropdown/cart-dropdown.component";
 
-const Header = props => {
+const Header = (props) => {
   //read currentUser from redux state set into props through mapStateToProps
   const { currentUser, isCartDropdownHidden } = props;
   return (
@@ -42,9 +42,9 @@ const Header = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
-  isCartDropdownHidden: state.cart.hidden
+  isCartDropdownHidden: state.cart.hidden,
 });
 
 export default connect(mapStateToProps)(Header);

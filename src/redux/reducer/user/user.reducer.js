@@ -1,7 +1,7 @@
-import UserActionTypes from "../action/user.action.types";
+import UserActionTypes from "../../action/user/user.action.types";
 
 const INITIAL_STATE = {
-  currentUser: null
+  currentUser: null,
 };
 
 //if no prevState, default to initialState
@@ -11,7 +11,7 @@ export const userReducer = (state = INITIAL_STATE, action) => {
       //state is read only. Always return a new state
       return {
         ...state,
-        currentUser: action.payload
+        currentUser: action.payload,
       };
     default:
       return state;
