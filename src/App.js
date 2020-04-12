@@ -6,7 +6,7 @@ import Header from "./components/header/header.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import "./App.css";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import { setCurrentUser } from "./redux/action/user/user.action";
+import { setCurrentUser } from "./redux/user/user.action";
 import { connect } from "react-redux";
 import Jackets from "./pages/jackets/jackets.component";
 import Mens from "./pages/mens/mens.component";
