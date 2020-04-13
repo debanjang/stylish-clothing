@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
@@ -13,6 +14,7 @@ import Mens from "./pages/mens/mens.component";
 import Sneakers from "./pages/sneakers/sneakers.component";
 import Womens from "./pages/womens/womens.component";
 import Hats from "./pages/hats/hats.component";
+import { selectCurrentUser } from "./redux/user/user.selectors";
 
 class App extends Component {
   unsubscribeFromAuth = null;
@@ -74,9 +76,10 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
-});
+const mapStateToProps = (state) =>
+  createStructuredSelector({
+    currentUser: selectCurrentUser,
+  });
 
 /* our mapDispatchToProps function should return a plain object:
 Each field in the object will become a separate prop for your own component,
