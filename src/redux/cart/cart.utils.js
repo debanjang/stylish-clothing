@@ -15,3 +15,22 @@ export const addItemsToCart = (cartItems, itemToAdd) => {
 
   return result;
 };
+
+export const removeItemsFromCart = (cartItems, itemToRemove) => {
+  let result = [];
+  console.log("Cart Items", cartItems);
+  const existingItem = cartItems.find(
+    (cartItem) => cartItem.id === itemToRemove.id
+  );
+  if (existingItem.quantity === 1) {
+    result = cartItems.filter((cartItem) => cartItem.id !== itemToRemove.id);
+  } else {
+    result = cartItems.map((cartItem) =>
+      cartItem.id === itemToRemove.id
+        ? { ...cartItem, quantity: cartItem.quantity - 1 }
+        : cartItem
+    );
+  }
+
+  return result;
+};

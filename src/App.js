@@ -18,6 +18,7 @@ import Mens from "./pages/mens/mens.component";
 import Sneakers from "./pages/sneakers/sneakers.component";
 import Womens from "./pages/womens/womens.component";
 import Hats from "./pages/hats/hats.component";
+import Checkout from "./pages/checkout/checkout.component";
 
 class App extends Component {
   unsubscribeFromAuth = null;
@@ -67,6 +68,7 @@ class App extends Component {
           <Route exact path="/shop/womens" component={Womens} />
           <Route exact path="/shop/sneakers" component={Sneakers} />
           <Route exact path="/shop/hats" component={Hats} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route
             exact
             path="/sign-in"
