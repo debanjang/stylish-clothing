@@ -1,20 +1,23 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
+
+import "./App.css";
+
+import { selectCurrentUser } from "./redux/user/user.selectors";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { setCurrentUser } from "./redux/user/user.action";
+
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
-import "./App.css";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import { setCurrentUser } from "./redux/user/user.action";
-import { connect } from "react-redux";
 import Jackets from "./pages/jackets/jackets.component";
 import Mens from "./pages/mens/mens.component";
 import Sneakers from "./pages/sneakers/sneakers.component";
 import Womens from "./pages/womens/womens.component";
 import Hats from "./pages/hats/hats.component";
-import { selectCurrentUser } from "./redux/user/user.selectors";
 
 class App extends Component {
   unsubscribeFromAuth = null;
