@@ -1,34 +1,23 @@
-import React, { Component } from "react";
-import SHOP_DATA from "../shop/shop.data";
+import React from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { selectWomensCollections } from "../../redux/shop/shop.selector";
 import CollectionItem from "./../../components/collection-item/collection-item.component";
 
 import "./../common-styles/common.styles.scss";
 
-class Womens extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: SHOP_DATA,
-    };
-  }
+const Womens = ({ womensData }) => (
+  <div className="collection">
+    <div className="preview">
+      {womensData.map((item) => (
+        <CollectionItem key={item.id} item={item} />
+      ))}
+    </div>
+  </div>
+);
 
-  getWomensData = (data) => {
-    return data.title === "Womens";
-  };
+const mapStateToProps = createStructuredSelector({
+  womensData: selectWomensCollections,
+});
 
-  render = () => {
-    let womensData = this.state.data.find(this.getWomensData).items;
-    console.log("Womens", womensData);
-    return (
-      <div className="collection">
-        <div className="preview">
-          {womensData.map((item) => (
-            <CollectionItem key={item.id} item={item} />
-          ))}
-        </div>
-      </div>
-    );
-  };
-}
-
-export default Womens;
+export default connect(mapStateToProps)(Womens);
