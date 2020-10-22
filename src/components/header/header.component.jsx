@@ -1,47 +1,48 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { ReactComponent as Logo } from "../../assests/shopping-logo-svgrepo-com.svg";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import "./header.styles.scss";
-
 import { auth } from "../../firebase/firebase.utils";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropDown from "../cart-dropdown/cart-dropdown.component";
 import { selectCartHidden } from "../../redux/cart/cart.selectors";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
+import {
+  HeaderContainer,
+  LogoContainer,
+  LogoElement,
+  OptionsContainer,
+  OptionLink,
+  SignOutContainer,
+  OptionDiv,
+} from "./header.styles";
 
 const Header = (props) => {
   //read currentUser from redux state set into props through mapStateToProps
   const { currentUser, isCartDropdownHidden } = props;
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
-        <Logo className="logo" />
-      </Link>
-      <div className="options">
-        <Link className="option" to="/shop">
-          SHOP
-        </Link>
-        <Link className="option" to="/shop">
-          CONTACTS
-        </Link>
+    <HeaderContainer>
+      <LogoContainer to="/">
+        <LogoElement className="logo" />
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to="/shop">SHOP</OptionLink>
+        <OptionLink to="/shop">CONTACTS</OptionLink>
         {currentUser ? (
-          <div className="sign-out-content">
-            <div className="option" onClick={() => auth.signOut()}>
-              SIGN OUT
-            </div>
-            <div className="option">Welcome {currentUser.displayName}</div>
-          </div>
+          <SignOutContainer>
+            <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
+            {/*<OptionDiv>Welcome {currentUser.displayName}</OptionDiv>*/}
+            {/* If only the base component returned is different,
+              as is the case between OptionLink and OptionDiv, we can use the as attribute
+              to convert one to the other */}
+            <OptionLink as="div">Welcome {currentUser.displayName}</OptionLink>
+          </SignOutContainer>
         ) : (
-          <Link className="option" to="/sign-in">
-            SIGN IN
-          </Link>
+          <OptionLink to="/sign-in">SIGN IN</OptionLink>
         )}
         <CartIcon />
-      </div>
+      </OptionsContainer>
       {isCartDropdownHidden ? null : <CartDropDown />}
-    </div>
+    </HeaderContainer>
   );
 };
 
